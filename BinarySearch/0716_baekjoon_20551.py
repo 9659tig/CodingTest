@@ -1,25 +1,16 @@
 import time
 
 
-def overlap(arr, mid):
-    while arr[mid] == arr[mid-1]:
-        mid -= 1
-    return mid
+def lowerbound(arr, t):
+    low, high = 0, len(arr)
 
-
-def binSearch(arr, t):
-    low = 0
-    high = len(arr) - 1
-
-    while low <= high:
+    while low < high:
         mid = (low+high) // 2
-        if arr[mid] == t:
-            return overlap(arr, mid)
-        elif arr[mid] < t:
-            low = mid+1
+        if arr[mid] >= t:
+            high = mid
         else:
-            high = mid-1
-    return -1
+            low = mid + 1
+    return low
 
 
 N, M = map(int, input().split())
@@ -32,6 +23,11 @@ start = time.time()
 
 B = sorted(A)
 for i in D:
-    print(binSearch(B, i))
+    index = lowerbound(B, i)
+    if index < N and B[index] == i:
+        print(index)
+    else:
+        print(-1)
+
 
 print("time :", time.time() - start)
