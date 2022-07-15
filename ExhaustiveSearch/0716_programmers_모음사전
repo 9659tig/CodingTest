@@ -1,0 +1,23 @@
+def solution(word):
+    answer = 0
+    change = 0
+    full_word = word + 'b'*(5-len(word))
+    rev_word = ''
+    for i in full_word:
+        rev_word = i + rev_word
+
+    for i in rev_word:
+        change = change*5 + 1
+
+        if i != 'b':
+            answer += 1
+            if i == 'E':
+                answer += change
+            elif i == 'I':
+                answer += change*2
+            elif i == 'O':
+                answer += change*3
+            elif i == 'U':
+                answer += change*4
+
+    return answer
